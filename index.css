@@ -1,0 +1,119 @@
+/***** GENERAL *****/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@500&display=swap');
+:root{
+    --color1: #ecf0f9;
+    --color2: #ff646c;
+    --color3: #637b97;
+    --heading1:  'Roboto', sans-serif;
+    --body: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: var(--heading1), sans-serif;
+}
+
+p, a, li, button, label{
+    font-family: var(--body) ,sans-serif;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 1em;
+}
+
+/****** HEADER *****/
+#main-header{
+    grid-row: 1;
+    grid-column: 1 / 13;
+    height: 100vh;
+    background: url("img/img-3.jpg") no-repeat;
+    background-size: cover;
+    background-color: var(--color1);
+    grid-template-rows: 1fr 1fr;
+}
+
+#header-text{
+    grid-row: 1;
+    grid-column: 3 / 11;
+    margin-top: 300px;
+    font-size: 3em;
+}
+
+#header-text h1{
+    color:  black;
+}
+
+#search-area{
+    grid-row: 2;
+    grid-column: 3 / 11;
+    height: 8em;
+    background-color: var(--color1);
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+#search-area form{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
+}
+
+i{
+    position: absolute;
+    margin-left: 1em;
+}
+
+#searchbar{
+    height: 50px;
+    width: 350px;
+    padding-left: 3em;
+    border: none;
+}
+
+#searchbar:focus{
+    outline: 1px solid white;
+    background-color: var(--color1);
+    color: var(--color3);
+}
+
+#radio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#radio input[type=radio]{
+    margin: 0 1em;
+}
+
+#submit{
+    width: 150px;
+    height: 50px;
+    background-color: var(--color3);
+    color: var(--color1);
+    border: none;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}
+
+/****** MAIN *****/
+main{
+    grid-row: 2;
+}
+
+/****** FOOTER*****/
+#main-footer{
+    grid-row: 3;
+}
+
