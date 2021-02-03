@@ -110,6 +110,37 @@ i{
 /****** MAIN *****/
 main{
     grid-row: 2;
+    grid-column:3 / 11;
+}
+
+#city-title{
+    margin-top: 1em;
+    color: var(--color2);
+}
+
+.weather-article{
+    width: 100%;
+    height: 200px;
+    background-color: var(--color1);
+    margin: 2em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.weather-info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.weather-info i{
+    grid-column: 1 / 2;
+    font-size: 4em;
+}
+
+.weather-info p, h2{
+    grid-column: 2 / 3;
 }
 
 /****** FOOTER*****/
