@@ -113,7 +113,7 @@ main{
     grid-column:3 / 11;
 }
 
-#city-title{
+#city-title, #attraction-title{
     margin-top: 1em;
     color: var(--color2);
 }
@@ -143,8 +143,28 @@ main{
     grid-column: 2 / 3;
 }
 
+#attraction-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+    margin: 1.5em 0;
+}
+
+.attraction-article{
+    height: 300px;
+    border: 3px solid var(--color2);
+}
+
 /****** FOOTER*****/
 #main-footer{
     grid-row: 3;
+    grid-column: 1 / 13;
+    height: 200px;
+    background-color: var(--color2);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
 }
 
