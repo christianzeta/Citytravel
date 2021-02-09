@@ -20,11 +20,11 @@
                     <input type="text" id="searchbar" placeholder="What city is on your mind?">
                     <section id="radio">
                         <label for="weather">Only weather</label><br>
-                        <input type="radio" id="weather" name="opt1" value="weather">
+                        <input type="radio" id="weather" name="opt" value="weather">
                         <label for="attractions">Only Attractions</label><br>
-                        <input type="radio" id="attractions" name="opt1" value="attractions">
+                        <input type="radio" id="attractions" name="opt" value="attractions">
                         <label for="filter">Filter alphabetically</label>
-                        <input type="radio" id="filter" name="filter" value="filter">
+                        <input type="radio" id="filter" name="opt" value="filter">
                     </section>
                     <button id="submit"> SEARCH </button>
                 </form>
@@ -50,7 +50,17 @@
             </section>
             <section id="attraction-section">
                 <article class="attraction-article">
-                    <p></p>
+                    <h2>The barn</h2>
+                    <div>
+                        <div class="attraction-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>          
+                        <address>
+                            Example.com<br>
+                            Box 564, Disneyland<br>
+                            USA
+                        </address>
+                    </div>
                 </article>
                 <article class="attraction-article">
                     <p></p>
@@ -64,5 +74,6 @@
             <h2>Hope you enjoyed City Travel</h2>
         </footer>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>
