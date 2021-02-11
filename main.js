@@ -6,12 +6,14 @@ const cityTitle = document.querySelector('#city-title');
 const temp = document.querySelector('#temp');
 const condition = document.querySelector('#condition');
 const weatherDay = document.querySelector('#weather-day')
+const errorSection = document.querySelector('#error-section');
+const weatherSection = document.querySelector('#weather-section');
+const errorMsg = document.querySelector('#error-msg');
+const attractionName = document.querySelector('#attraction-name');
+const attractionAdress = document.querySelector('#attraction-adress');
+const attractionSection = document.querySelector('#attraction-section');
 
 searchBtn.addEventListener('click', executeSearch);
-
-function changeCityTitle(city){
-    cityTitle.innerText = city;
-}
 
 function executeSearch() {
     let option = 'false';
@@ -26,8 +28,37 @@ function executeSearch() {
         filter: option
     }
 
-    changeCityTitle(searchValues.city);
-    getWeatherInfo(searchValues.city, displayWeather);
+    getWeatherInfo(searchValues.city);
+    getAttractionsInfo(searchValues.city);
+}
+
+function changeCityTitle(city){
+    let title = city.charAt(0).toUpperCase() + city.slice(1);
+    cityTitle.innerText = title;
+}
+
+function getWeatherInfo(city){
+    let url = getWeatherUrl(city);
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+
+    xhr.onload = () => {
+        if(xhr.status === 404){
+            displayError('weather', 'Weather was not found, try again..')
+        }
+        else{
+            errorSection.style.display = 'none';
+            changeCityTitle(city);
+            displayWeather(xhr.response);
+        }
+    }
+    xhr.onerror = () => {
+        displayError('Sorry, cant show weather updates right now..');
+    }
+    xhr.send();
+  
 }
 
 function getWeatherUrl(city){
@@ -44,22 +75,80 @@ function getWeatherUrl(city){
     return url;
 }
 
-function getWeatherInfo(city, displayWeather){
-    let url = getWeatherUrl(city);
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.responseType = 'json';
-
-    xhr.onload = () => {
-        displayWeather(xhr.response);
-    }
-    xhr.send();
-}
-
 function displayWeather(info){
     weatherDay.innerText = getDate('day');
     temp.innerText = info.main.temp;
     condition.innerText = info.weather[0].description;
+    weatherSection.style.display = 'block';
+}
+
+function getAttractionsInfo(city){
+    let url = getAttractionsUrl(city);
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.responseType = 'json';
+    xhr.onload = () => {
+        let info = xhr.response;
+        let attractionsArray = info.response.groups[0].items;
+        displayAttractions(attractionsArray);
+    }
+    xhr.send();
+}
+
+function displayAttractions(attractionsArray){
+    
+    for(let i = 0; i < attractionsArray.length; i++){
+      
+        let icon = attractionsArray[i].venue.categories[0].icon.prefix + '.png';
+        let name = attractionsArray[i].venue.name;
+        let address = attractionsArray[i].venue.location.formattedAddress
+        let article = createArticle(name, address, icon);
+        attractionSection.appendChild(article);
+    }
+}
+
+function createArticle(name, Iaddress, icon){
+    let article = document.createElement('article');
+    article.classList.add('attraction-article');
+    let title = document.createElement('h2');
+    title.classList.add('attraction-title');
+    title.innerText = name;
+    article.appendChild(title);
+    let div = document.createElement('div');
+    let address = document.createElement('address');
+    address.classList.add('attraction-address');
+    address.innerText = Iaddress.toString();
+    let image = document.createElement('img');
+    image.classList.add('attraction-image');
+    image.setAttribute('src', icon);
+    div.appendChild(address);
+    div.appendChild(image);
+    article.appendChild(div);
+
+    return article;
+}
+
+function getAttractionsUrl(city){
+    const url = new URL('https://api.foursquare.com/v2/venues/explore');
+    const searchParams = {
+        client_id: 'BMF55ZEHJXLKTPUKURRRCZLFUDKQDLNOOCBSSMQ3PJLPBYEU',
+        client_secret: 'X5YGNPMAFTLHFGYSG5SEN0B4FRRBX0HK5DXGCPOSALX1F4PT',
+        limit: 9,
+        near: city,
+        v: getDate('YMDay')
+    }
+    for(let prop in searchParams){
+        url.searchParams.append(prop, searchParams[prop]);
+    }
+    return url;
+}
+
+function displayError(errorType, msg){
+    if(errorType === 'weather'){
+        weatherSection.style.display = 'none';
+        errorMsg.innerText = msg;
+        errorSection.style.display = 'block';
+    }
 }
 
 function getDate(format){
@@ -89,9 +178,9 @@ function getDate(format){
 
     let YMDay = year.toString() + month + day;
 
-    if(format = 'day'){
+    if(format === 'day'){
         return dayOfWeek;
-    } else if(format = '¨YMDay'){
+    } else if(format === 'YMDay'){
         return YMDay;
     }
 }
@@ -121,11 +210,8 @@ function getDate(format){
 
 
 
-/*
-let CLIENT_ID = 'BMF55ZEHJXLKTPUKURRRCZLFUDKQDLNOOCBSSMQ3PJLPBYEU';
-let CLIENT_SECRET = 'X5YGNPMAFTLHFGYSG5SEN0B4FRRBX0HK5DXGCPOSALX1F4PT';
-let today = getDate();
-console.log(today);
-let foursquareGET = `https://api.foursquare.com/v2/venues/search?ll=40.7,-74&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&v=${today}`;
 
-*/
+
+
+
+

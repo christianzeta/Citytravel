@@ -8,6 +8,11 @@
     --body: 'Montserrat', sans-serif;
 }
 
+@keyframes errorMsg {
+    from {background-color: white;}
+    to {background-color: var(--color2);}
+  }
+
 h1, h2, h3, h4, h5, h6{
     font-family: var(--heading1), sans-serif;
 }
@@ -118,10 +123,24 @@ main{
     color: var(--color2);
 }
 
+#error-section{
+    width: 100%;
+    padding: 1em;
+    background-color: var(--color2);
+    color: white;
+    display: none;
+    text-align: center;
+    animation-name: errorMsg;
+    animation-duration: 1s;
+}
+
+#weather-section{
+    display: none;
+}
+
 .weather-article{
     width: 100%;
     height: 200px;
-    background-color: var(--color1);
     margin: 2em 0;
     display: flex;
     align-items: center;
@@ -159,19 +178,16 @@ main{
 
 .attraction-article div{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 70%;
     margin: 0 auto;
     height: 100%;
+    text-align: center;
 }
 
 .attraction-article h2{
     text-align: center;
-}
-
-.attraction-icon i{
-    font-size: 3em;
 }
 
 /****** FOOTER*****/
