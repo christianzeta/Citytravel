@@ -99,7 +99,7 @@ function displayAttractions(attractionsArray){
     
     for(let i = 0; i < attractionsArray.length; i++){
       
-        let icon = attractionsArray[i].venue.categories[0].icon.prefix + '.png';
+        let icon = attractionsArray[i].venue.categories[0].icon.prefix +'64' + '.png';
         let name = attractionsArray[i].venue.name;
         let address = attractionsArray[i].venue.location.formattedAddress
         let article = createArticle(name, address, icon);
@@ -120,9 +120,9 @@ function createArticle(name, Iaddress, icon){
     address.innerText = Iaddress.toString();
     let image = document.createElement('img');
     image.classList.add('attraction-image');
-    image.setAttribute('src', icon);
-    div.appendChild(address);
+    image.src = icon;
     div.appendChild(image);
+    div.appendChild(address);
     article.appendChild(div);
 
     return article;
